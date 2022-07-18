@@ -13,14 +13,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // -------------------------------------------- //
 var storage = multer.memoryStorage();
 var upload = multer({
-    dest: "./upload",
+   //dest: "./compressed/",
   storage: storage,
 });
 // -------------------------------------------- //
 
 app.post("/compress", upload.single("file"), async (req, res) => {
   try {
-    const destination = `upload/${req.file.originalname}.gz`;
+    const destination = `compressed/${req.file.originalname}.gz`;
     let fileBuffer = req.file.buffer;
     await zlib.gzip(fileBuffer, (err, response) => {
       if (err) {
